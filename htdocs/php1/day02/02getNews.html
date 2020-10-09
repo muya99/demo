@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<button id = 'btn1'>下载数据</button>
+	<ul id="ul1">
+
+	</ul>
+</body>
+<script type="module">
+import ajax from "./ajax.js";
+var oBtn = document.getElementById("btn1");
+var oUl = document.getElementById("ul1");
+oBtn.onclick = function(){
+    ajax({
+      url: "code14/getNews.php",
+      success: function(msg){
+        var arr = JSON.parse(msg);
+
+        var str = ``;
+        for(var i = 0; i < arr.length; i++){
+          str += `<li><a href="#">${arr[i].title}</a>【<span>${arr[i].date}</span>】</li>`
+        }
+        oUl.innerHTML = str;
+      },
+      error: function(msg){
+        console.log(msg);
+      }
+    })
+  }
+
+</script>
+</html>

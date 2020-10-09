@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      function ajax({ type = "get", url, data, success, error}) {
+        //1、生成ajax对象
+        var xhr = null;
+        try {
+          xhr = new XMLHttpRequest();
+        } catch (error) {
+          //IE8以下兼容的方法
+          xhr = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        //2、调用open方法
+        if(type === 'get' && data){
+          url += "?" + querystring(data);//？拼接
+        }
+        xhr.open(type, url, true);
+
+        //3、调用send
+        if(type === 'get'){
+          xhr.send();
+        }else{
+          //这行代码必须写在send方法的前面
+          xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
+          xhr.send(data && querystring(data));
+        }
+
+        //4. 拿到数据
+        xhr.onreadystatechange = function(){
+          if(xhr.readyState == 4){
+            if(xhr.status == 200){
+              success && success(xhr.responseText);
+            }else{
+              error && error("Error：" + xhr.status);
+            }
+          }
+        }
+      }
+
+      //拼接一个查询字符串
+      function querystring(obj){
+        var str = ``;
+        for(var attr in obj){
+          str += `${attr}=${obj[attr]}&`;
+        }
+        return str.substring(0, str.length - 1);
+      }
+
+
+      window.onload = function(){
+        var aBtns = document.getElementsByTagName("button");
+        aBtns[0].onclick = function(){
+          ajax({
+            url: "code14/1.get.php",
+            data: {
+              username: '钢铁侠',
+              age: 18,
+              password: '123abc'·
+            },
+            success: function(msg){
+              console.log("GET：" + msg);
+            },
+            error: function(error){
+              console.log(error + '==========');
+            }
+          })
+        }
+
+        aBtns[1].onclick = function(){
+          ajax({
+            type: 'post',
+            url: "code14/1.post.php",
+            data: {
+              username: '钢铁侠',
+              age: 18,
+              password: '123abc'
+            },
+            success: function(msg){
+              console.log("POST：" + msg);
+            },
+            error: function(error){
+              console.log(error);
+            }
+          })
+        }
+      }
+
+    </script>
+  </head>
+  <body>
+    <button>GET请求</button>
+    <button>POST请求</button>
+  </body>
+</html>

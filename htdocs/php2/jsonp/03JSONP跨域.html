@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      function download(data) {
+        console.log("下载到的数据：" + data);
+      }
+    </script>
+    <!-- <script src = '01.txt'></script> -->
+
+    <!-- 按需下载 -->
+    <script>
+      window.onload = function () {
+        var oBtn = document.getElementById("btn1");
+        oBtn.onclick = function(){
+          //动态创建script标签
+          var oScript = document.createElement("script");
+          oScript.src = "01.txt";
+          document.body.appendChild(oScript);
+        }
+      };
+    </script>
+  </head>
+  <body>
+    <button id="btn1">下载数据</button>
+    <!--
+    1、先声明好一个函数，这个函数有一个参数
+    2、通过script标签的src引入我们需要的数据
+    3、会执行已经声明的函数，在函数中，我们针对拿到的数据进行后续的处理
+
+    【注】返回的数据必须是函数调用的形式。
+
+   -->
+  </body>
+</html>

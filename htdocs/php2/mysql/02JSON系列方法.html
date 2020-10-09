@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script>
+    /*
+      JSON.parse()   将json格式的字符串转成对应的数据结构
+      JSON.stringify()  将对应的数据结构，转成对应json格式的字符串。
+    */
+
+    /*
+      宜家    运输     你家
+      装好    拆掉     装好
+    */
+
+    /*
+      客户端   运输    服务端
+      数据结构  字符串  数据结构
+      【注】字符串直接转成二进制。
+
+
+      javascript这个部分  JSON.parse  JSON.stringify();
+    */
+
+    // var arr = [10, 20, 30, "hello"];
+    // var str = JSON.stringify(arr);
+    // console.log(arr);
+    // console.log(str); // [10,20,30,"hello"] 字符串
+
+
+    // var str = '[10,20,30,"hello"]';
+    // var arr = JSON.parse(str);
+    // console.log(arr);
+
+    // var person = {
+    //   username: '钢铁侠',
+    //   age: 18,
+    //   sex: '男'
+    // }
+
+    // var str = JSON.stringify(person);
+    // console.log(person);
+    // console.log(str);
+
+
+
+    var str = '{"username":"钢铁侠","age":18,"sex":"男"}';
+    var person = JSON.parse(str);
+    console.log(person);
+
+
+  </script>
+</head>
+<body>
+
+</body>
+</html>

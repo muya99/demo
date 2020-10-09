@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+  <script>
+    function download(data){
+      var arr = data.weather;
+      var oT1 = document.getElementById("t1");
+      var oH3 = document.getElementById("h3");
+
+      // console.log(data);
+      oH3.innerHTML = `城市：${data.city} &nbsp;&nbsp;&nbsp;&nbsp; 日期：${data.date} &nbsp;&nbsp;&nbsp;&nbsp; PM25：${data.pm25}`;
+
+      var str = ``;
+      for(var i = 0; i < arr.length; i++){
+        str += `<tr>
+              <td>${arr[i].date}</td>
+              <td>${arr[i].temp}</td>
+              <td>${arr[i].weather}</td>
+              <td>${arr[i].wind}</td>
+            </tr>`;
+      }
+
+      oT1.innerHTML = str;
+    }
+  </script>
+  <script>
+    window.onload = function(){
+      var oBtn = document.getElementById("btn1");
+      var oCity = document.getElementById("city");
+
+      oBtn.onclick = function(){
+        if(!oCity.value){
+          alert("请输入城市名称");
+        }else{
+          var oScript = document.createElement("script");
+          oScript.src = `https://api.asilu.com/weather/?city=${oCity.value}&callback=download`;
+          document.body.appendChild(oScript);
+        }
+      }
+    }
+  </script>
+</head>
+<body>
+  <div class = 'container'>
+    <div class = 'panel panel-primary'>
+      <div class = 'panel-heading'>
+        <h3>查询天气</h3>
+      </div>
+      <div class = 'panel-body'>
+        <div class = 'form-group'>
+          <label for="city" >城市：</label>
+          <input type="text" class="form-control" id = 'city' />
+        </div>
+        <button class = 'btn btn-primary' id = 'btn1'>查询天气</button>
+      </div>
+      <div class = 'panel-footer'>
+        <h3 id = 'h3'></h3>
+        <table class = 'table table-bordered table-hover'>
+          <thead>
+            <tr>
+              <th>日期</th>
+              <th>气温</th>
+              <th>天气</th>
+              <th>风向</th>
+            </tr>
+          </thead>
+          <tbody id = 't1'>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

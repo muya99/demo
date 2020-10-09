@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<script type="text/javascript">
+		function download(date){
+			console.log("下载到的数据：",date);
+		}
+	</script>
+	<script type="text/javascript">
+		window.onload = function(){
+			var oBtn = document.getElementById("btn");
+			oBtn.onclick = function(){
+				var oScript = document.createElement("script");
+				oScript.src = 'https://api.asilu.com/weather/?city=青岛&callback=download';
+						document.body.appendChild(oScript);
+						}
+
+					}
+	</script>
+</head>
+<body>
+	<button id="btn">查询天气</button>
+</body>
+</html>

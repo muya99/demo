@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script>
+    /*
+      try{
+        我们想去执行的代码;
+        throw new Error("创建的新错误");
+      }catch(error){
+        捕获我们想要的错误;
+      }
+
+      【注】try中的代码执行异常，才会执行catch中的代码进行补救。
+      【注】throw 手动抛出异常。
+    */
+
+
+    try{
+      console.log("错误前");
+      throw new Error("这是演习，不是真的错了");
+      console.log("错误后");
+    }catch(error){
+      console.log("补救代码：", error);
+    }
+  </script>
+</head>
+<body>
+
+</body>
+</html>

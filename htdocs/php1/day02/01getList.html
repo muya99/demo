@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<button id="btn1">下载数据</button>
+</body>
+<script type="module">
+	import ajax from"./ajax.js";
+	var oBtn = document.getElementById("btn1");
+	oBtn.onclick = function(){
+		ajax({
+			url:"code14/getList.php",
+		})
+		 
+		 success:function(msg){
+		 var obj = JSON.parse(msg);	
+		 	console.log(obj);
+		 	
+		 	
+		 },
+		 error:function(msg){
+		 	console.log(msg);
+		 }
+	}
+</script>
+</html>
