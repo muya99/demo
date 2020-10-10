@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <!--
+    action  url
+    method  请求方式
+    get post
+
+    http://localhost/php2/code14/1.get.php?username=tianyufei&password=123abc&age=20
+    get请求：通过search字符串，通过?拼接在url的后面。去进行的提交。
+    缺点：
+      1、安全性非常差
+      2、最大不能2kb，不能上传。
+    优点：
+      1、简单，快捷
+
+    post请求：通过浏览器内部传输。
+    优点：
+      1、安全
+      2、理论上来讲，可以上传和提交任意大小
+    缺点：
+      底层实现，相对对get提交相对复杂。
+   -->
+  <form action="code14/1.post.php" method="post" enctype="application/x-www-form-urlencoded">
+    <input type="text" name = 'username' />
+    <input type="text" name = 'password' />
+    <input type="text" name = 'age' />
+    <input type="submit" value = '提交' />
+  </form>
+</body>
+</html>

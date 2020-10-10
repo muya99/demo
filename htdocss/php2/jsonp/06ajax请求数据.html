@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <button id = 'btn1'>ajax请求</button>
+</body>
+<script type = 'module'>
+  import ajax from "./ajax.js";
+  var oBtn = document.getElementById("btn1");
+  oBtn.onclick = function(){
+    ajax({
+      type: 'get',
+      url: "../code14/getNews.php",
+      success: function(result){
+        console.log(result);
+      },
+      error: function(msg){
+        console.log(msg);
+      }
+    })
+  }
+</script>
+</html>

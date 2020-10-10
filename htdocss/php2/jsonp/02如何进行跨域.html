@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script>
+    /*
+      如何进行跨域
+        1、：CORS 头缺少 'Access-Control-Allow-Origin'  修改CORS协议的头文件
+        2、反向代理的方式  设置一个中间代理文件
+        3、JSONP跨域
+    */
+    "hello world";
+  </script>
+  <!-- script标签 src 也是具有跨域的能力 -->
+  <!-- <script src = 'demo.mp4'></script> -->
+
+  <!--
+    1、引入了一个字符串，没有办法拿到这个字符串的
+    2、引入的路径的后缀不是.js文件。
+      文件的后缀有用么？文件后缀唯一的作用，用于让操作系统快速识别用哪个软件打开它。
+
+   -->
+  <script src = '01.txt'></script>
+</head>
+<body>
+  <!-- img 的 src 通过跨域的方式引入了我们的图片 -->
+  <img src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=187921529,1104649483&fm=26&gp=0.jpg" alt="">
+</body>
+</html>

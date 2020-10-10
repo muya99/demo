@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script>
+    /*
+      ajax 异步加载数据的。
+        Asynchronous JavaScript and XML（异步JavaScript和XML)
+    */
+    window.onload = function(){
+      var oBtn = document.getElementById("btn1");
+      oBtn.onclick = function(){
+        //1、生成ajax对象
+        var xhr = null;
+        if(window.XMLHttpRequest){
+          xhr = new XMLHttpRequest();
+        }else{ //IE8以下兼容的方法
+          xhr = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+
+        //2、open方法
+        /*
+          第一个参数，请求的方式
+          第二个参数，请求的url
+          第三个参数，是否异步
+        */
+        xhr.open("get", "01.txt", true);
+
+        //3、调用send方法
+        xhr.send();
+
+        //4、获取数据
+        xhr.onreadystatechange = function(){
+          if(xhr.readyState == 4){
+            console.log(xhr.responseText);
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body>
+  <button id = 'btn1'>下载数据</button>
+</body>
+</html>

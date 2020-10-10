@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Document</title>
+  <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .panel-footer{
+      display: flex;
+      justify-content: center;
+      
+    }
+  </style>
+</head>
+<body>
+  <div class="'container'">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        查询用户的列表
+      </div>
+      <div class="panel-body">
+        <table class="table table-bordered table-hover">
+          <thead>
+            <tr>
+              <th>用户ID</th>
+              <th>用户名</th>
+              <th>密码</th>
+              <th>注册日期</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody id="t1">
+            
+          </tbody>
+        </table>
+      </div>
+      <div class="panel-footer">
+        <!-- 分页器 -->
+        <nav aria-label="Page navigation">
+          <ul class="pagination" id = 'left'>
+            <li>
+              <a href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+          </ul>
+          <ul class="pagination">
+
+          </ul>
+          <ul class="pagination" id = 'right'>
+            <li>
+              <a href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+        
+      </div>
+    </div>
+  </div>
+</body>
+<script type="module">
+  import ajax from "./ajax.js";
+  var oBtn = document.getElementById('btn1');
+  var oT1 = document.getElementById("t1");
+  var oPagination = document.querySelectorAll('.pagination');
+  var oLeft = document.querySelector('#left');
+  var oRight = document.querySelector('#right');
+  var page_globel = 1;
+
+
+  //给左右按钮添加点击
+  oLeft.onclick = function(){
+    download(--page_globel, 5);
+  }
+
+  oRight.onclick = function(){
+    download(++page_globel, 5);
+  }
+
+
+  //通过事件委托，给当前页面上的删除添加点击
+  oT1.onclick = function(ev){
+    var e = ev || window.event;
+    var target = e.target || window.event.srcElement;
+    if(target.innerHTML == "删除"){
+      var id = target.parentNode.id;
+      //发送给后台，删除数据
+      ajax({
+        type: 'get',
+        url: "delete.php",
+        data: {
+          id: id
+        },
+        success: function(result){
+          var obj = JSON.parse(result);
+          if(!obj.code){
+            target.parentNode.parentNode.remove();
+          }
+        },
+        error: function(msg){
+          console.log(msg);
+        }
+      })
+
+    }
+    return false;
+  }
+
+  //给当前页面的按钮添加事件，通过事件委托
+  oPagination[1].onclick = function(ev){
+    var e = ev || window.event;
+    var target = e.target || window.event.srcElement;
+    if(target.tagName.toLowerCase() === "a"){
+      download(target.innerHTML, 5)
+    }
+    return false;
+  }
+
+  download(1, 5);
+
+  function download(page, limit){
+    ajax({
+      type: 'get',
+      url: 'userlist.php?page=' + page + "&limit=" + limit,
+      success: function(result){
+        var obj = JSON.parse(result);
+        var arr = obj.data;
+        var str = ``;
+        for (var i = 0; i < arr.length; i++) {
+          str += `<tr>
+              <td>${arr[i].id}</td>
+              <td>${arr[i].username}</td>
+              <td>${arr[i].password}</td>
+              <td>${showTime(arr[i].createtime)}</td>
+              <td id = '${arr[i].id}'>
+                <a href = '#'>删除</a>
+                /
+                <a href = '#'>修改</a>
+              </td>
+            </tr>`
+        }
+        oT1.innerHTML = str;
+
+        
+        var cur_pages = obj.pages;
+        page_globel = obj.page;
+        var str2 = ``;
+        for (var i = 0; i < cur_pages; i++) {
+          str2 += `<li class = ${page_globel === (i + 1) ? "active" : ""}><a href="#">${i + 1}</a></li>`;
+        }
+        oPagination[1].innerHTML = str2;
+      },
+      error: function(msg){
+        console.log(msg);
+      }
+    })
+  }
+
+
+  //将日期输出成年月日星期小时分钟秒的格式
+function showTime(time){
+  var d = new Date(Number(time));
+  var year = d.getFullYear();
+  var month = d.getMonth() + 1;
+  var date = d.getDate();
+
+  var week = d.getDay();
+  week = numberOfChinese(week);
+
+  var hour = doubleNum(d.getHours());
+  var min = doubleNum(d.getMinutes());
+  var sec = doubleNum(d.getSeconds());
+
+  return year + "年" + month + "月" + date + "日 星期" + week + " " + hour + ":" + min + ":" + sec;
+}
+
+
+//将星期输出成中文
+function numberOfChinese(n){
+  //n星期  0-6  0周日
+  var arr = ["日", "一", "二", "三", "四", "五", "六"];
+  return arr[n];
+}
+
+//单位数变双位数
+function doubleNum(n){
+  if(n < 10){
+    return "0" + n;
+  }else{
+    return n;
+  }
+}
+
+
+</script>
+</html>

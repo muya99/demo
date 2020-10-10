@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="axios.min.js"></script>
+    <script>
+      window.onload = function () {
+        var oBtn = document.getElementById("btn1");
+        oBtn.onclick = function () {
+          fetch("getNews.php")
+            .then((response) => response.json()) //将下载的数据，转成对应的数据结构
+            .then((res) => {
+              console.log(res);
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        };
+      };
+    </script>
+  </head>
+  <body>
+    <button id="btn1">fetch下载数据</button>
+  </body>
+</html>

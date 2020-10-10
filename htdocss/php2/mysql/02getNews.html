@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <button id = 'btn1'>下载数据</button>
+  <ul id = 'ul1'>
+    <!-- <li><a href="#">新闻1</a>【<span>日期</span>】</li> -->
+  </ul>
+</body>
+<script type = 'module'>
+  import ajax from "./ajax.js";
+
+  //bejson 这样的工具
+
+  var oBtn = document.getElementById("btn1");
+  var oUl = document.getElementById("ul1");
+  oBtn.onclick = function(){
+    ajax({
+      url: "code14/getNews.php",
+      success: function(msg){
+        var arr = JSON.parse(msg);
+
+        var str = ``;
+        for(var i = 0; i < arr.length; i++){
+          str += `<li><a href="#">${arr[i].title}</a>【<span>${arr[i].date}</span>】</li>`
+        }
+        oUl.innerHTML = str;
+      },
+      error: function(msg){
+        console.log(msg);
+      }
+    })
+  }
+
+
+  /*
+    1、下载数据
+    2、分析数据
+    3、解析成对应的数据结构，再进行后续的操作。
+  */
+</script>
+</html>
